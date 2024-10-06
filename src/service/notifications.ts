@@ -170,8 +170,10 @@ export class Notification extends Service {
         this._summary = summary;
         this._body = body;
         this._time = GLib.DateTime.new_now_local().to_unix();
-        this._image = this._appIconImage() ||
-            this._parseImageData(hints['image-data']) ||
+        this._image = this._parseImageData(hints['image-data']) ||
+            this._parseImageData(hints['image_data']) ||
+            hints['image-path']?.unpack() ||
+            this._appIconImage() ||
             hints['image-path']?.unpack();
 
         this._popup = popup;
